@@ -1,0 +1,31 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "PORT=4040  node server.js",
+    "dev": " nodemon server.js"
+  },
+  "author": "test",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.492.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-simple": "^0.5.6",
+    "md5": "^2.2.1",
+    "mkdirp": "^0.5.1",
+    "mongoose": "^5.5.11",
+    "multer": "^1.4.1",
+    "multer-s3": "^2.9.0",
+    "nodemailer": "^6.2.1",
+    "nodemailer-express-handlebars": "^3.0.0",
+    "nodemon": "^1.19.1"
+  }
+}
