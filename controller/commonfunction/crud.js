@@ -1,7 +1,7 @@
 module.exports = {
-    getAll: (Schema) => {
+    getAll: (Schema, query) => {
         return new Promise(function (resolve, reject) {
-            Schema.find()
+            Schema.find(query)
                 .then((data) => {
                     resolve(data);
                 })
@@ -25,7 +25,7 @@ module.exports = {
     },
     getById: (Schema, id) => {
         return new Promise(function (resolve, reject) {
-            Schema.findOne({ _id: id })
+            Schema.findById({ _id: id })
                 .then((data) => {
                     resolve(data);
                 })

@@ -21,7 +21,7 @@ const Users = new Schema({
     secretKey: String,
     role: {
         type: String,
-        enum: ['Admin', 'SuperAdmin', 'Dboy']
+        enum: ['User', 'Admin', 'SuperAdmin', 'Dboy']
     },
     status: {
         type: String,

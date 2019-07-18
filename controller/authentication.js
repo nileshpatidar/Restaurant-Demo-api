@@ -15,7 +15,7 @@ const register = (req, res) => {
     if (valid.error) {
         return res.status(422).send({ status: false, error: valid.error.details })
     }
-    crudController.getBy(UserModel, { email: req.body.email })
+    crudController.getBy(UserModel, { email: req.body.email, role: req.body.role })
         .then(async (resData) => {
             if (resData) {
                 return res.status(401).send({ status: false, error: 'Already have account' })
@@ -91,6 +91,7 @@ const login = (req, res) => {
     }
     crudController.getBy(UserModel, { email: req.body.email, role: req.body.role })
         .then(async (userData) => {
+
             if (!userData.isVerified) {
                 var param = { verification_code: userData.verification_code, Username: `${userData.Name}` };
                 mailer.sendverificaionmail(userData.email, `Your ${userData.role} Account Verification code`, param);
@@ -106,7 +107,11 @@ const login = (req, res) => {
                 var upda = await crudController.updateData(UserModel, { email: req.body.email, role: req.body.role }, { $set: { secretKey } });
                 if (secretKey) {
                     let result = {
-                        userIno: userData,
+                        _id: userData._id,
+                        Name: userData.Name,
+                        role: userData.role,
+                        email: userData.email,
+                        ContactNo: userData.ContactNo,
                         key: upda.secretKey
                     }
                     return res.status(200).send({ status: true, result: result })
@@ -150,12 +155,13 @@ const resendVerification = async (req, res) => {
 
 const profileUpdate = async (req, res) => {
     try {
+        let data = JSON.parse(req.body.data)
         if (req.file.location) {
-            req.body.profile_image = req.file.location
+            data.profile_image = req.file.location
         } else if (req.file.path) {
-            req.body.profile_image = req.file.path
+            data.profile_image = req.file.path
         }
-        let updatedData = await UserModel.updateOne({ _id: req.body.id }, { $set: { ...req.body } }, { upsert: false, new: true })
+        let updatedData = await UserModel.updateOne({ _id: data.id }, { $set: { data } }, { upsert: false, new: true })
         if (!updatedData) {
             res.status(500).send({
                 status: false,

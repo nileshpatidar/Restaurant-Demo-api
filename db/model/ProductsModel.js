@@ -1,22 +1,21 @@
 const mongoose = require('./../../dbconnection/config'),
     Schema = mongoose.Schema;
-const Resturant = new Schema({
-    email: String,
-    // superadmin_id: {
-    //     type: String,
-    //     require: true
-    // },
+const Product = new Schema({
+    restorant_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Resturants"
+    },
     userid: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    resturant_name: {
+    ProductName: {
         type: String
     },
-    contact_number: {
-        type: Number
+    isveg: {
+        type: Boolean
     },
-    restorant_image: {
+    ProductImage: {
         type: String
     },
     address: {
@@ -35,4 +34,4 @@ const Resturant = new Schema({
     });
 
 
-module.exports = mongoose.model('Resturants', Resturant);
+module.exports = mongoose.model('Products', Product);

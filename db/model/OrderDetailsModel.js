@@ -1,24 +1,20 @@
 const mongoose = require('./../../dbconnection/config'),
     Schema = mongoose.Schema;
-const Resturant = new Schema({
-    email: String,
-    // superadmin_id: {
-    //     type: String,
-    //     require: true
-    // },
+const OrderSchema = new Schema({
+    restaurant_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Resturants"
+    },
+
     userid: {
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    resturant_name: {
-        type: String
+    Product_id: {
+        type: Schema.Types.ObjectId,
+        ref: "Products"
     },
-    contact_number: {
-        type: Number
-    },
-    restorant_image: {
-        type: String
-    },
+    Quantity: Number,
     address: {
         landmark: String,
         city: String,
@@ -27,7 +23,8 @@ const Resturant = new Schema({
     },
     status: {
         type: String,
-        default: "Active"
+        enum: ['Pending', 'Accepted', 'Preparing', 'Deliverd'],
+        default: 'Pending'
     }
 },
     {
@@ -35,4 +32,4 @@ const Resturant = new Schema({
     });
 
 
-module.exports = mongoose.model('Resturants', Resturant);
+module.exports = mongoose.model('Orders', OrderSchema);
